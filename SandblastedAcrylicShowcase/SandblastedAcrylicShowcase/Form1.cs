@@ -40,23 +40,33 @@ namespace SandblastedAcrylicShowcase
         // The magic happens here!
         private void EnableBlur()
         {
-            var accent = new AccentPolicy
-            { AccentState = 4, GradientColor = unchecked((int)0x9F000000) }; // Accentstate = 4 (Acrylic)
-
-            var accentStructSize = Marshal.SizeOf(accent);
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = 19,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-
-            _ = SetWindowCompositionAttribute(this.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
+            try {
+                var accent = new AccentPolicy
+                { AccentState = 4, GradientColor = unchecked((int)0x9F000000) }; // Accentstate = 4 (Acrylic)
+    
+                var accentStructSize = Marshal.SizeOf(accent);
+                var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+                Marshal.StructureToPtr(accent, accentPtr, false);
+    
+                var data = new WindowCompositionAttributeData
+                {
+                    Attribute = 19,
+                    SizeOfData = accentStructSize,
+                    Data = accentPtr
+                };
+    
+                _ = SetWindowCompositionAttribute(this.Handle, ref data);
+    
+                Marshal.FreeHGlobal(accentPtr);
+            } catch (Exception) {
+                // your error handling code here
+            } finally {
+                // IMPORTANT: PREVENT MEMORY LEAK
+                if (accentPtr != IntPtr.Zero)
+                {
+                    Marshal.FreeHGlobal(accentPtr);
+                }
+            }
         }
 
         // Ignore this code
