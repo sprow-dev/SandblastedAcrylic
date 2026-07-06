@@ -23,3 +23,8 @@ Then, to add definition, it uses a slight amount of transparency in the form its
 If it doesn't work, look up your issue. If it still does not work after applying at least 1 fix, create an issue here and I can try to diagnose.
 If you do not provide the code that is problematic, I will disregard your issue as I do not have enough information.
 I am not putting in the time to add an issue template, be reasonable.
+
+---
+
+Note: The release is not always completely accurate with the code. I will post small improvements that I do not think are big enough to update the showcase with.
+If it affects how the showcase looks, I will update the release.
